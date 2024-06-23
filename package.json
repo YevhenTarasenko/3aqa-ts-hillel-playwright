@@ -2,12 +2,14 @@
   "name": "3aqa-ts-hillel-playwright",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui"
+  },
+  "author": "Yevhen Tarasenko",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@playwright/test": "^1.44.1",
     "@types/node": "^20.14.6",
     "prettier": "3.3.2"
