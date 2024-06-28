@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { HeaderComponent } from '../components/HeaderComponent';
 
-export class HomePage extends BasePage {
+export class GaragePage extends BasePage {
 	private readonly _header: HeaderComponent;
 
 	constructor(page: Page) {

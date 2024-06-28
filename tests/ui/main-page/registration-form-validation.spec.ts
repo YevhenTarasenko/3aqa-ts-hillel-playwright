@@ -1,24 +1,26 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../../src/pages/HomePage';
-import { HeaderComponent } from '../../../src/components/HeaderComponent';
+import { GaragePage } from '../../../src/pages/GaragePage';
 import { LogInComponent } from '../../../src/components/LogInComponent';
 import { RegistrationComponent } from '../../../src/components/RegistrationComponent';
 import { faker } from '@faker-js/faker';
 
 const randomEmail = faker.internet.email({ firstName: 'aqa-tarasenko' });
 
+let homePage: HomePage;
+let garagePage: GaragePage;
+let logInPopup: LogInComponent;
 let registrationPopup: RegistrationComponent;
-let header: HeaderComponent;
 
 test.describe('Registration form validation', async () => {
 	test.beforeEach(async ({ page }) => {
-		const homePage = new HomePage(page);
-		header = new HeaderComponent(page);
-		const logInPopup = new LogInComponent(page);
+		homePage = new HomePage(page);
+		garagePage = new GaragePage(page);
+		logInPopup = new LogInComponent(page);
 		registrationPopup = new RegistrationComponent(page);
 
 		await homePage.navigate();
-		await header.signInBtn.click();
+		await homePage.header.signInBtn.click();
 		await logInPopup.registrationBtn.click();
 	});
 
@@ -30,7 +32,7 @@ test.describe('Registration form validation', async () => {
 		await registrationPopup.passwordInput.fill('Qwerty12345%');
 		await registrationPopup.reEnterPasswordInput.fill('Qwerty12345%');
 		await registrationPopup.registerBtn.click();
-		await expect.soft(header.myProfileDropdown).toBeVisible();
+		await expect.soft(garagePage.header.myProfileDropdown).toBeVisible();
 	});
 
 	//Test the "Register" button is not clickable if data incorrect
