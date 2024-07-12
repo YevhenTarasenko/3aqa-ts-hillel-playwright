@@ -30,27 +30,41 @@ export default defineConfig({
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		baseURL: process.env.BASE_URL,
-
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: 'retain-on-failure',
-
 		viewport: { width: 1920, height: 1080 },
+		httpCredentials: {
+			username: process.env.HTTP_CREDENTIALS_USERNAME!,
+			password: process.env.HTTP_CREDENTIALS_PASSWORD!,
+		},
 	},
 
 	/* Configure projects for major browsers */
 	projects: [
 		{
-			name: 'qauto',
+			name: 'login-setup',
+			testMatch: 'login.setup.ts',
+			testDir: './setup',
 			use: {
 				...devices['Desktop Chrome'],
-				viewport: { width: 1920, height: 1080 },
-				trace: 'retain-on-failure',
-				baseURL: process.env.BASE_URL,
-				httpCredentials: {
-					username: process.env.HTTP_CREDENTIALS_USERNAME!,
-					password: process.env.HTTP_CREDENTIALS_PASSWORD!,
-				},
 			},
+		},
+		{
+			name: 'qauto',
+			testDir: './tests',
+			use: {
+				...devices['Desktop Chrome'],
+			},
+			dependencies: ['login-setup'],
+		},
+		{
+			name: 'api-qauto',
+			testDir: './tests',
+			testMatch: '**/*.api.ts',
+			use: {
+				...devices['Desktop Chrome'],
+			},
+			dependencies: ['login-setup'],
 		},
 		// {
 		//   name: 'chromium',
