@@ -57,6 +57,15 @@ export default defineConfig({
 			},
 			dependencies: ['login-setup'],
 		},
+		{
+			name: 'api-qauto',
+			testDir: './tests',
+			testMatch: '**/*.api.ts',
+			use: {
+				...devices['Desktop Chrome'],
+			},
+			dependencies: ['login-setup'],
+		},
 		// {
 		//   name: 'chromium',
 		//   use: { ...devices['Desktop Chrome'] },

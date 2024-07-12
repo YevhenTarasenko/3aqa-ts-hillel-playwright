@@ -10,6 +10,6 @@ export class BasePage {
 	}
 
 	async navigate() {
-		return this._page.goto(this._url);
+		return this._page.goto(this._url, { waitUntil: 'commit' });
 	}
 }
